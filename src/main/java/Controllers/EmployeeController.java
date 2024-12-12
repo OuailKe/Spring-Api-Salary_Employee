@@ -37,7 +37,7 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable int id, @RequestBody Employee employee) {
         if (employeeService.getEmployeeById(id).isEmpty()) {
-            employee.setId(id);
+            //employee.setId(id);
             return ResponseEntity.ok(employeeService.saveEmployee(employee));
         }else {
             return ResponseEntity.notFound().build();

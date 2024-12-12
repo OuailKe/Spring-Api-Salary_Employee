@@ -10,4 +10,5 @@ public interface SalaryService {
     Optional<Salary> getSalaryById(int id);
     Salary saveSalary(Salary salary);
     void deleteSalary(int id);
+    List<Salary> getSalaryByUser(int id);
 }

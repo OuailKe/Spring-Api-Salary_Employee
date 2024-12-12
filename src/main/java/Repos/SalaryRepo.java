@@ -4,6 +4,9 @@ import Entities.Employee;
 import Entities.Salary;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SalaryRepo extends JpaRepository<Salary, Integer> {
+import java.util.List;
+import java.util.Optional;
 
+public interface SalaryRepo extends JpaRepository<Salary, Integer> {
+List<Salary> findByEmployee(Optional<Employee> employee);
 }

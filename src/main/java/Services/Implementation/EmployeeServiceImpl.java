@@ -39,6 +39,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepo.deleteById(id);
     }
 
+    @Override
+    public Optional<Employee> getEmployeeByUsername(String username) {
+        return Optional.ofNullable(employeeRepo.findByUsername(username));
+    }
+
     private static String generateUsernamePassword(String firstName, String lastName) {
         return firstName.substring(0, 3).toLowerCase() +
                 lastName.substring(0, 3).toLowerCase() +

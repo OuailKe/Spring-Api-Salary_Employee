@@ -36,8 +36,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return  http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/login","api/register").permitAll()
-                        .requestMatchers("api/user/**").hasAnyAuthority("MANAGER","EMPLOYEE")
+                        .requestMatchers("api/login","api/register","api/salary/my-salaries").permitAll()
+                        .requestMatchers("api/employee/**","api/users").hasAnyAuthority("MANAGER","EMPLOYEE")
+                        .requestMatchers("api/users").hasAuthority("MANAGER")
+                        .requestMatchers("api/salary/{Fid}").hasAuthority("MANAGER")
                         .anyRequest().authenticated())
 //                    .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
