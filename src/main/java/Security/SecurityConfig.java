@@ -4,6 +4,7 @@ import Security.JWT.JwtFilter;
 import Security.UserDetails.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = {"Security.UserDetails", "Security.JWT"})
 public class SecurityConfig {
     @Autowired
     private MyUserDetailsService userDetailsService;
@@ -34,8 +36,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return  http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("api/login","api/register")
-                        .permitAll()
+                        .requestMatchers("api/login","api/register").permitAll()
+                        .requestMatchers("api/user/**").hasAnyAuthority("MANAGER","EMPLOYEE")
                         .anyRequest().authenticated())
 //                    .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

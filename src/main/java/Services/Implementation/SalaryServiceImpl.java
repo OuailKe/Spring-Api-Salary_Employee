@@ -3,15 +3,23 @@ package Services.Implementation;
 import Entities.Salary;
 import Repos.SalaryRepo;
 import Services.SalaryService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+
 public class SalaryServiceImpl implements SalaryService {
-    @Autowired
+
     SalaryRepo salaryRepo;
+
+    public SalaryServiceImpl(SalaryRepo salaryRepo) {
+        this.salaryRepo = salaryRepo;
+    }
 
     @Override
     public List<Salary> getAllSalaries() {
@@ -19,8 +27,8 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
-    public Salary getSalaryById(int id) {
-        return salaryRepo.findById(id).orElse(null);
+    public Optional<Salary> getSalaryById(int id) {
+        return salaryRepo.findById(id);
     }
 
     @Override
